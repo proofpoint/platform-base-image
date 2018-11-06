@@ -6,3 +6,4 @@ RUN cd dumb-init && make
 
 FROM docker.io/azul/zulu-openjdk-debian:8u181
 COPY --from=dumb-init-builder /dumb-init/dumb-init /usr/local/bin/dumb-init
+ENTRYPOINT ["/usr/local/bin/dumb-init"]
