@@ -1,17 +1,14 @@
 ## compile dumb-init
-FROM gcc:8.2.0 as dumb-init-builder
+FROM gcc:9.1.0 as dumb-init-builder
 
 RUN git clone -b v1.2.1 --depth 1 --single-branch https://github.com/proofpoint/dumb-init.git
 RUN cd dumb-init && make
 
-FROM docker.io/azul/zulu-openjdk-debian:8u212
+FROM docker.io/azul/zulu-openjdk-debian:8u222
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
+#RUN apt-get update && \
+#    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
                      # These packages are security updates
-                     tzdata=2019a-0+deb9u1 \
-                     libsystemd0=232-25+deb9u11 \
-                     libudev1=232-25+deb9u11
 
 COPY --from=dumb-init-builder /dumb-init/dumb-init /usr/local/bin/dumb-init
 ENTRYPOINT ["/usr/local/bin/dumb-init"]
