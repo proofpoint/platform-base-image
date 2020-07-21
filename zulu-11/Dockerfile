@@ -10,6 +10,7 @@ COPY --from=dumb-init-builder /dumb-init/dumb-init /usr/local/bin/dumb-init
 RUN apt-get update && \
    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
        # These packages are security updates
-       libgnutls30=3.6.7-4+deb10u4         
+       libgnutls30=3.6.7-4+deb10u4 \
+       libsystemd0=241-7~deb10u4
 
 ENTRYPOINT ["/usr/local/bin/dumb-init"]
