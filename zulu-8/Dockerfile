@@ -4,12 +4,11 @@ FROM gcc:9.2.0 as dumb-init-builder
 RUN git clone -b v1.2.2 --depth 1 --single-branch https://github.com/proofpoint/dumb-init.git
 RUN cd dumb-init && make
 
-FROM docker.io/azul/zulu-openjdk-debian:8u252-8.46.0.19
+FROM docker.io/azul/zulu-openjdk-debian:8u265-8.48.0.53
 
-RUN apt-get update && \
-   DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
-       # These packages are security updates
-       libsystemd0=241-7~deb10u4
+# RUN apt-get update && \
+#    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
+#        # These packages are security updates
 
 COPY --from=dumb-init-builder /dumb-init/dumb-init /usr/local/bin/dumb-init
 ENTRYPOINT ["/usr/local/bin/dumb-init"]
