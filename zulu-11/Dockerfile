@@ -7,8 +7,10 @@ RUN cd dumb-init && make
 FROM docker.io/azul/zulu-openjdk-debian:11.0.8-11.41.23
 COPY --from=dumb-init-builder /dumb-init/dumb-init /usr/local/bin/dumb-init
 
-# RUN apt-get update && \
-#    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
-#        # These packages are security updates
+RUN apt-get update && \
+   DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
+       # These packages are security updates
+       libx11-6=2:1.6.7-1+deb10u1 \
+       libx11-data=2:1.6.7-1+deb10u1
 
 ENTRYPOINT ["/usr/local/bin/dumb-init"]
