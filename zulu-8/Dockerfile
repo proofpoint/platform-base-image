@@ -4,7 +4,7 @@ FROM gcc:9.2.0 as dumb-init-builder
 RUN git clone -b v1.2.2 --depth 1 --single-branch https://github.com/proofpoint/dumb-init.git
 RUN cd dumb-init && make
 
-FROM docker.io/azul/zulu-openjdk-debian:8u265-8.48.0.53
+FROM docker.io/azul/zulu-openjdk-debian:8u272-8.50.0.21
 
 RUN apt-get update && \
    DEBIAN_FRONTEND=noninteractive apt-get install --assume-yes \
